@@ -142,4 +142,16 @@ public class Utils {
             return false;
         }
     }
+
+    public static void statics() {
+        try {
+            users = mapper.readValue(file,
+                    new TypeReference<List<User>>() {
+                    });
+
+            
+        } catch (IOException e) {
+            e.getMessage();
+        }
+    }
 }
