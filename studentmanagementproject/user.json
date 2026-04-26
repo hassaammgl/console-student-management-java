@@ -1,0 +1,5 @@
+[
+  { "_id": 1, "name": "hassaam", "email": "abc@xyz.com", "type": "student" },
+  { "_id": 2, "name": "noor", "email": "xyz@abc.com", "type": "student" },
+  { "_id": 3, "name": "hassaan", "email": "aaa@abc.com", "type": "student" }
+]
