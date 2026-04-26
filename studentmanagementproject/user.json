@@ -1,5 +1,20 @@
 [
-  { "_id": 1, "name": "hassaam", "email": "abc@xyz.com", "type": "student" },
-  { "_id": 2, "name": "noor", "email": "xyz@abc.com", "type": "student" },
-  { "_id": 3, "name": "hassaan", "email": "aaa@abc.com", "type": "student" }
+  {
+    "_id": 1,
+    "name": "hassaam",
+    "email": "abc@xyz.com",
+    "type": "boss"
+  },
+  {
+    "_id": 2,
+    "name": "noor",
+    "email": "abc1@xyz.com",
+    "type": "bossi"
+  },
+  {
+    "_id": 4,
+    "name": "hassaan",
+    "email": "xyz@abc.com",
+    "type": "boss2"
+  }
 ]

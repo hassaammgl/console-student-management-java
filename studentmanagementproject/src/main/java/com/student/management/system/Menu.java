@@ -12,24 +12,25 @@ public class Menu {
         System.out.println("3) update user");
         System.out.println("4) list users");
         System.out.println("0) exit");
-        return sc.nextInt();
+        return Integer.parseInt(sc.nextLine());
     }
 
     public Menu(Scanner sc) {
-        switch (getChoice(sc)) {
-            case 0:
-                System.exit(0);
-                break;
-            case 1:
-                Utils.getUser(sc);
-            case 2:
-                Utils.getUser(sc);
-            case 3:
-                Utils.getUser(sc);
-            case 4:
-                Utils.listUsers();
-            default:
-                break;
+        while (true) {
+            switch (getChoice(sc)) {
+                case 0 -> {
+                    System.out.println("Bye");
+                    System.exit(0);
+                }
+                case 1 -> {
+                    User user = Utils.getUser(sc);
+                    Utils.writeDataToFile(user);
+                }
+                case 2 -> Utils.deleteUser(sc);
+                case 3 -> Utils.updateUser(sc);
+                case 4 -> Utils.listUsers();
+                default -> System.out.println("Wrong choice");
+            }
         }
     }
 }

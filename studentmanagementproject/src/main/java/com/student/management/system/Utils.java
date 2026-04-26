@@ -14,6 +14,27 @@ public class Utils {
     static File file = new File("user.json");
     static ObjectMapper mapper = new ObjectMapper();
 
+    public static void initializeCounter() {
+        try {
+            if (file.exists()) {
+                users = mapper.readValue(file,
+                        new TypeReference<List<User>>() {
+                        });
+                int maxId = 0;
+
+                for (User u : users) {
+                    if (u._id > maxId) {
+                        maxId = u._id;
+                    }
+                }
+                User.setCounter(maxId);
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static User getUser(Scanner sc) {
         String name;
         String email;
@@ -24,14 +45,13 @@ public class Utils {
         email = sc.nextLine();
         System.out.println("Enter usertype: ");
         type = sc.nextLine();
-        User u = new User(name, email, type);
-        return u;
+        return new User(name, email, type);
     }
 
     public static void listUsers() {
         for (User user : users) {
-            System.out.println("Id: " + user._id + " user with name:" + user.name + " also with this email:"
-                    + user.email + " is " + user.type);
+            System.out.println("Id: " + user._id + " | name:" + user.name + " | email:"
+                    + user.email + " | type " + user.type);
         }
     }
 
@@ -55,7 +75,7 @@ public class Utils {
         }
     }
 
-    public List<User> readDataFromFile() {
+    public static List<User> readDataFromFile() {
         try {
             users = mapper.readValue(file,
                     new TypeReference<List<User>>() {
@@ -66,4 +86,60 @@ public class Utils {
         return users;
     }
 
+    public static boolean deleteUser(Scanner sc) {
+        try {
+            System.out.println("Enter user Id:");
+            int id = Integer.parseInt(sc.nextLine());
+            List<User> latestusers = Utils.readDataFromFile();
+            latestusers.removeIf(user -> user._id == id);
+            mapper.writeValue(file, latestusers);
+            return true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean updateUser(Scanner sc) {
+        try {
+            System.out.println("Enter user Id:");
+            int id = Integer.parseInt(sc.nextLine());
+            List<User> latestusers = Utils.readDataFromFile();
+            boolean found = false;
+            for (User user : latestusers) {
+                if (user._id == id) {
+                    System.out.println("New Name (leave empty to keep):");
+                    String name = sc.nextLine();
+                    if (!name.isEmpty()) {
+                        user.name = name;
+                    }
+
+                    System.out.println("New Email (leave empty to keep):");
+                    String email = sc.nextLine();
+                    if (!email.isEmpty()) {
+                        user.email = email;
+                    }
+
+                    System.out.println("New Type (leave empty to keep):");
+                    String type = sc.nextLine();
+                    if (!type.isEmpty()) {
+                        user.type = type;
+                    }
+                    found = true;
+                    break;
+                }
+
+            }
+            if (!found) {
+                System.out.println("User not found");
+                return false;
+            }
+
+            mapper.writeValue(file, latestusers);
+            return true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }
