@@ -11,8 +11,8 @@ public class Menu {
         System.out.println("2) delete users");
         System.out.println("3) update user");
         System.out.println("4) list users");
-        System.out.println("5) statics");
-        System.out.println("6) search");
+        // System.out.println("5) statics");
+        // System.out.println("6) search");
         System.out.println("0) exit");
         return Integer.parseInt(sc.nextLine());
     }
@@ -31,8 +31,8 @@ public class Menu {
                 case 2 -> Utils.deleteUser(sc);
                 case 3 -> Utils.updateUser(sc);
                 case 4 -> Utils.listUsers();
-                case 5 -> Utils.listUsers();
-                case 6 -> Utils.listUsers();
+                // case 5 -> Utils.statics();
+                // case 6 -> Utils.search();
                 default -> System.out.println("Wrong choice");
             }
         }

@@ -144,14 +144,41 @@ public class Utils {
     }
 
     public static void statics() {
+        System.out.println("===== DASHBOARD =====");
+        int total = users.size();
+        int students = 0;
+        int admins = 0;
+
+        int maxId = 0;
         try {
             users = mapper.readValue(file,
                     new TypeReference<List<User>>() {
                     });
-
-            
         } catch (IOException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
+
+        for (User u : users) {
+
+            if ("student".equalsIgnoreCase(u.type)) {
+                students++;
+            } else if ("admin".equalsIgnoreCase(u.type)) {
+                admins++;
+            }
+
+            if (u._id > maxId) {
+                maxId = u._id;
+            }
+        }
+
+        System.out.println("Total Users : " + total);
+        System.out.println("Students    : " + students);
+        System.out.println("Admins      : " + admins);
+        System.out.println("Last User ID: " + maxId);
+        System.out.println("=====================");
+    }
+
+    public static void search() {
+        System.out.println("searching data");
     }
 }
